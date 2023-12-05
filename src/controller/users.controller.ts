@@ -14,7 +14,7 @@ export class UsersController extends Controller<User> {
     debug('Instantiated');
   }
 
-  //  async getAll(_req: Request, res: Response, next: NextFunction) {
+  //  Aasync getAll(_req: Request, res: Response, next: NextFunction) {
   //   try {
   //     const result = await this.repo.getAll();
   //     res.json(result);

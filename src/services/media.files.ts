@@ -25,7 +25,7 @@ export class MediaFiles {
       use_filename: true,
       unique_filename: false,
       overwrite: true
-   });
+  });
 
       const imgData: ImgData = {
         url: uploadApiResponse.url,
@@ -36,7 +36,7 @@ export class MediaFiles {
         format: uploadApiResponse.format
       }
       return imgData;
-   } catch (err) {
+  } catch (err) {
       const error = (err as {error: Error}).error as Error
       throw new HttpError(406, 'Not Acceptable', error.message);
     }

@@ -3,25 +3,25 @@ import { User } from '../../entities/user.js';
 
 
 const usersSchema = new Schema<User>({
- email: {
-  type: String,
-  required: true,
-  unique: true
- },
- passwd: {
-  type: String,
-  required: true
- },
- name: {
-  type: String,
- },
- surname: String,   // Cuando solo le vamos a dar un tipo podemos hacerlo directamente así
- cars: [
-  {
-    type: Schema.Types.ObjectId,
-    ref: 'Car',
-  }
- ] 
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  passwd: {
+    type: String,
+    required: true
+  },
+  name: {
+    type: String,
+  },
+  surname: String, 
+  cars: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Car',
+    }
+  ] 
 });
 
 usersSchema.set('toJSON', {
