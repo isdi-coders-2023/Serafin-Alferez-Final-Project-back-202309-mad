@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import createDebug from 'debug';
-import { UsersMongoRepo } from '../repos/users/users.mongo.repo.js';
+import { UsersMongoRepo } from '../repos/users/user.mongo.repo.js';
 import { Auth } from '../services/auth.js';
 import { Controller } from './controller.js';
 import { User } from '../entities/user.js';

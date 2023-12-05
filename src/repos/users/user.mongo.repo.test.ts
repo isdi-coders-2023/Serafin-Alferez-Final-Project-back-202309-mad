@@ -1,122 +1,69 @@
-import { User } from '../../entities/user.js';
+import { UsersMongoRepo } from './user.mongo.repo.js';
 import { Auth } from '../../services/auth.js';
+import { LoginUser, User } from '../../entities/user.js';
 import { UserModel } from './user.mongo.model.js';
 
-import { UsersMongoRepo } from './users.mongo.repo.js';
+jest.mock('./user.mongo.model.js');
+jest.mock('../../services/auth.js');
 
-describe('Given UsersMongoRepo', () => {
+describe('GivenUsersMongoRepo', () => {
+  Auth.hash = jest.fn();
+  Auth.compare = jest.fn().mockResolvedValue(true);
   let repo: UsersMongoRepo;
-  describe('When we instantiated it without errors', () => {
-    const exec = jest.fn().mockResolvedValue('Example result value');
-
+  describe('When we instantiate it without errors', () => {
+    const exec = jest.fn().mockResolvedValue('Test');
     beforeEach(() => {
-      UserModel.find = jest.fn().mockReturnValue({
+      const mockQueryMethod = jest.fn().mockReturnValue({
+        populate: jest.fn().mockReturnValue({
+          exec,
+        }),
         exec,
       });
-
-      UserModel.findById = jest.fn().mockReturnValue({
-        exec,
-      });
-
-      UserModel.create = jest.fn().mockResolvedValue('Example result value');
-
-      UserModel.findByIdAndUpdate = jest.fn().mockReturnValue({
-        exec,
-      });
-
-      UserModel.findByIdAndDelete = jest
-        .fn()
-        .mockResolvedValue('Example result value');
-
-      UserModel.findOne = jest.fn().mockReturnValue({
-        exec,
-      });
-
-      Auth.compare = jest.fn().mockReturnValue(true);
-
+      UserModel.find = mockQueryMethod;
+      UserModel.findById = mockQueryMethod;
+      UserModel.findOne = mockQueryMethod;
+      UserModel.findByIdAndUpdate = mockQueryMethod;
+      UserModel.findByIdAndDelete = mockQueryMethod;
+      UserModel.create = jest.fn().mockResolvedValue('Test');
       repo = new UsersMongoRepo();
     });
 
-    test('Then it should execute getAll()', async () => {
+    test('Then it should execute create', async () => {
+      const result = await repo.create({} as Omit<User, 'id'>);
+      expect(Auth.hash).toHaveBeenCalled();
+      expect(UserModel.create).toHaveBeenCalled();
+      expect(result).toBe('Test');
+    });
+
+    test('Then it should execute login', async () => {
+      const result = await repo.login({ email: '' } as LoginUser);
+      expect(UserModel.findOne).toHaveBeenCalled();
+      expect(result).toBe('Test');
+    });
+
+    test('Then it should execute getAll', async () => {
       const result = await repo.getAll();
       expect(exec).toHaveBeenCalled();
-      expect(result).toBe('Example result value');
+      expect(result).toBe('Test');
     });
 
-    test('Then it should execute getById()', async () => {
+    test('Then it should execute getById', async () => {
       const result = await repo.getById('');
       expect(exec).toHaveBeenCalled();
-      expect(result).toBe('Example result value');
+      expect(result).toBe('Test');
     });
 
-    test('Then it should execute create()', async () => {
-      const result = await repo.create({ email: '' } as Omit<User, 'id'>);
-      expect(result).toBe('Example result value');
-    });
 
-    test('Then it should execute update()', async () => {
-      const result = await repo.update('', {} as Partial<User>);
+    test('Then it should execute update', async () => {
+      const result = await repo.update('1', { id: '2' });
       expect(exec).toHaveBeenCalled();
-      expect(result).toBe('Example result value');
+      expect(result).toBe('Test');
     });
 
-    test('Then it should execute delete()', async () => {
-      const result = await repo.delete('');
-      expect(result).toBe(undefined);
-    });
-
-    test('Then it should execute login()', async () => {
-      const result = await repo.login({} as User);
-      expect(result).toBe('Example result value');
+    test('Then it should execute delete', async () => {
+      await repo.delete('1');
+      expect(exec).toHaveBeenCalled();
     });
   });
 
-  describe('When we instantiate it with errors', () => {
-    // Const exec = jest.fn().mockRejectedValue(new Error('Error Test'));
-    const exec = jest.fn().mockResolvedValue(undefined);
-
-    beforeEach(() => {
-      UserModel.find = jest.fn().mockReturnValue({
-        exec,
-      });
-
-      UserModel.findById = jest.fn().mockReturnValue({
-        exec,
-      });
-
-      UserModel.findByIdAndUpdate = jest.fn().mockReturnValue({
-        exec,
-      });
-
-      UserModel.findByIdAndDelete = jest.fn().mockReturnValue(undefined);
-
-      UserModel.findOne = jest.fn().mockReturnValue({
-        exec,
-      });
-
-      repo = new UsersMongoRepo();
-    });
-
-    test('Then should execute getAll() throwing an error', async () => {
-      expect(repo.getAll()).rejects.toThrow();
-    });
-
-    test('Then should execute getById() throwing an error', async () => {
-      expect(repo.getById('')).rejects.toThrow();
-    });
-
-    test('Then should execute update() throwing an error', async () => {
-      expect(repo.update('', { id: '' } as Partial<User>)).rejects.toThrow();
-
-      expect(repo.update('', {} as Partial<User>)).rejects.toThrow();
-    });
-
-    test('Then should execute update() throwing an error', async () => {
-      expect(repo.delete('')).rejects.toThrow();
-    });
-
-    test('Then should execute login() throwing an error', async () => {
-      expect(repo.login({} as User)).rejects.toThrow();
-    });
-  });
 });

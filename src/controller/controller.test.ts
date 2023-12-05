@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { UsersController } from './users.controller';
-import { UsersMongoRepo } from '../repos/users/users.mongo.repo';
+import { UsersMongoRepo } from '../repos/users/user.mongo.repo';
 
 
 describe('Given UsersController class', () => {

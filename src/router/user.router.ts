@@ -1,6 +1,6 @@
 import { UsersController } from "../controller/users.controller.js";
 // T import { AuthInterceptor } from "../middleware/auth.interceptor.js";
-import { UsersMongoRepo } from "../repos/users/users.mongo.repo.js";
+import { UsersMongoRepo } from "../repos/users/user.mongo.repo.js";
 import createDebug from 'debug';
 import { Router as createRouter } from 'express';
 

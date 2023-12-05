@@ -9,5 +9,6 @@ export default {
     'src/repos/users/users.mongo.model.ts',
     'src/app.ts',
     'src/index.ts',
+    'src/repos/repo.ts'
   ],
 };

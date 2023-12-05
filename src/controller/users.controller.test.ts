@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { UsersController } from './users.controller.js';
-import { UsersMongoRepo } from '../repos/users/users.mongo.repo.js';
+import { UsersMongoRepo } from '../repos/users/user.mongo.repo.js';
 
 
 describe('Given user controller class', () => {

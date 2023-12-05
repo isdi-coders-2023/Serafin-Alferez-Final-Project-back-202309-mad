@@ -1,7 +1,7 @@
 import { Router as createRouter } from 'express';
 import createDebug from 'debug';
 import { AuthInterceptor } from '../middleware/auth.interceptor.js';
-// Iimport { FileInterceptor } from '../middleware/file.interceptor.js';
+import { FileInterceptor } from '../middleware/file.interceptor.js';
 import { CarsMongoRepo } from '../repos/cars/cars.mongo.repo.js';
 import { CarsController } from '../controller/cars.controller.js';
 
@@ -10,7 +10,7 @@ const debug = createDebug('FP:cars:router');
 export const carsRouter = createRouter();
 debug('Starting');
 
-// I const fileInterceptor = new FileInterceptor();
+const fileInterceptor = new FileInterceptor();
 const repo = new CarsMongoRepo();
 const controller = new CarsController(repo);
 const interceptor = new AuthInterceptor()
