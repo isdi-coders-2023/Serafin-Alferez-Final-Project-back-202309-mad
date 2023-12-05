@@ -1,9 +1,9 @@
 import createDebug from 'debug';
 import { Repository } from '../repo.js';
 import { LoginUser, User } from '../../entities/user.js';
-import { UserModel } from './users.mongo.model.js';
 import { HttpError } from '../../types/http.error.js';
 import { Auth } from '../../services/auth.js';
+import { UserModel } from './user.mongo.model.js';
 
 const debug = createDebug('W7E:users:mongo:repo');
 
@@ -43,5 +43,12 @@ export class UsersMongoRepo implements Repository<User> {
     }).exec();
     if (!result) throw new HttpError(404, 'Not Found', 'Update not possible');
     return result;
+  }
+
+  async delete(id: string): Promise<void> {
+    const result = await UserModel.findByIdAndDelete(id).exec();
+    if (!result) {
+      throw new HttpError(404, 'Not Found', 'Delete not possible');
+    }
   }
 }

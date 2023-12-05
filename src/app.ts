@@ -3,7 +3,9 @@ import cors from 'cors';
 import morgan from 'morgan';
 import createDebug from 'debug';
 import { errorMiddleware } from './middleware/error.middleware.js';
-import { usersRouter } from './router/users.router.js';
+import { carsRouter } from './router/cars.router.js';
+import { usersRouter } from './router/user.router.js';
+
 
 const debug = createDebug('W8E:app');
 
@@ -16,6 +18,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.static('public'));
 
+app.use('/cars', carsRouter);
 app.use('/users', usersRouter);
 
 app.use(errorMiddleware);

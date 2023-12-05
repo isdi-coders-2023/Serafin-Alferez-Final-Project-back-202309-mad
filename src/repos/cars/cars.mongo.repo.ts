@@ -1,7 +1,7 @@
 import createDebug from 'debug';
 import mongoose from 'mongoose';
 import { Car } from '../../entities/car.js';
-import { CarModel } from '../users/car.mongo.model.js';
+import { CarModel } from './car.mongo.model.js';
 import { HttpError } from '../../types/http.error.js';
 import { UsersMongoRepo } from '../users/users.mongo.repo.js';
 import { Repository } from '../repo.js';
