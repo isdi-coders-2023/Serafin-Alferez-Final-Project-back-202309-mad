@@ -1,5 +1,5 @@
 import { UsersController } from "../controller/users.controller.js";
-import { AuthInterceptor } from "../middleware/auth.interceptor.js";
+// T import { AuthInterceptor } from "../middleware/auth.interceptor.js";
 import { UsersMongoRepo } from "../repos/users/users.mongo.repo.js";
 import createDebug from 'debug';
 import { Router as createRouter } from 'express';
@@ -10,10 +10,10 @@ const debug = createDebug('FP:users:router');
 export const usersRouter = createRouter();
 debug('Starting');
 
-// Cconst fileInterceptor = new FileInterceptor();
+// Tconst fileInterceptor = new FileInterceptor();
 const repo = new UsersMongoRepo();
 const controller = new UsersController(repo);
-const interceptor = new AuthInterceptor();
+// Tconst interceptor = new AuthInterceptor();
 
 usersRouter.get('/', controller.getAll.bind(controller));
 usersRouter.post(
@@ -21,7 +21,7 @@ usersRouter.post(
   controller.create.bind(controller)
 );
 usersRouter.post('/login', controller.login.bind(controller));
-usersRouter.patch('/login', 
-  interceptor.authorization.bind(interceptor), 
-  controller.login.bind(controller)
-);   // Hacemos login with token
+// T usersRouter.patch('/login', 
+//   interceptor.authorization.bind(interceptor), 
+//   controller.login.bind(controller)
+// );   // Hacemos login with token

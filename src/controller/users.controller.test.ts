@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import { UsersController } from './users.controller';
-import { UsersMongoRepo } from '../repos/users/users.mongo.repo';
+import { UsersController } from './users.controller.js';
+import { UsersMongoRepo } from '../repos/users/users.mongo.repo.js';
 
 
 describe('Given user controller class', () => {
@@ -80,6 +80,7 @@ describe('Given user controller class', () => {
       expect(mockResponse.statusMessage).toBe('Accepted');
       expect(mockRepo.getById).toHaveBeenCalledWith(mockTokenUserId);
     });
+     
   });
   
 });

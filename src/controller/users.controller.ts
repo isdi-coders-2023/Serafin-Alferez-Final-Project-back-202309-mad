@@ -5,7 +5,7 @@ import { Auth } from '../services/auth.js';
 import { Controller } from './controller.js';
 import { User } from '../entities/user.js';
 
-const debug = createDebug('W7E:users:controller');
+const debug = createDebug('FP:users:controller');
 
 export class UsersController extends Controller<User> {
   // eslint-disable-next-line no-unused-vars
@@ -14,7 +14,7 @@ export class UsersController extends Controller<User> {
     debug('Instantiated');
   }
 
-  // Z async getAll(_req: Request, res: Response, next: NextFunction) {
+  //  async getAll(_req: Request, res: Response, next: NextFunction) {
   //   try {
   //     const result = await this.repo.getAll();
   //     res.json(result);
@@ -23,16 +23,16 @@ export class UsersController extends Controller<User> {
   //   }
   // }
 
-  async loginWithToken(req: Request, res: Response, next: NextFunction) {
-    try {
-      const result = this.repo.getById(req.body.userId);
-      res.json(result);
-      res.status(202);
-      res.statusMessage = 'Accepted';
-    } catch (error) {
-      next(error);
-    }
-  }
+  //  async loginWithToken(req: Request, res: Response, next: NextFunction) {
+  //   try {
+  //     const result = this.repo.getById(req.body.userId);
+  //     res.json(result);
+  //     res.status(202);
+  //     res.statusMessage = 'Accepted';
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
 
   async login(req: Request, res: Response, next: NextFunction) {
     try {
