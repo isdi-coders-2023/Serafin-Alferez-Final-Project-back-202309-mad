@@ -6,7 +6,7 @@ import createDebug from 'debug';
 const PORT = process.env.PORT || 3030;
 
 const server = createServer(app);
-const debug = createDebug('W8E:index');
+const debug = createDebug('FP:index');
 
 dbConnect()
   .then((mongoose) => {
