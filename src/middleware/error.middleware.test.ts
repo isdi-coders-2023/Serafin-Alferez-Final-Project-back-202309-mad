@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
-import { HttpError } from '../types/http.error';
+
 import mongoose, { mongo } from 'mongoose';
 import { handleError } from './error.middleware.js';
+import { HttpError } from '../types/http.error.js';
 
 describe('Given the handleError middleware', () => {
   describe('When it is instantiate', () => {
