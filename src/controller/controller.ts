@@ -2,19 +2,18 @@
 
 import { Repository } from '../repos/repo.js';
 import { NextFunction, Request, Response } from 'express';
-import { MediaFiles } from '../services/media.files.js';
+
 
 
 export abstract class Controller<T extends { id: unknown }> {
-  cloudinaryService: MediaFiles;
+  // TcloudinaryService: MediaFiles;
   // eslint-disable-next-line no-unused-vars
   constructor(protected repo: Repository<T>) {
-    this.cloudinaryService = new MediaFiles()
+    // T this.cloudinaryService = new MediaFiles()
   }
 
   async create(req: Request, res: Response, next: NextFunction) {
     try {
-      console.log(req.body);
       const result = await this.repo.create(req.body);
       res.status(201);
       res.statusMessage = 'Created';
@@ -51,3 +50,4 @@ export abstract class Controller<T extends { id: unknown }> {
       }
     }
 }
+
