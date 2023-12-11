@@ -12,9 +12,11 @@ const carsSchema = new Schema<Car>({
   },
   make: {
     type: String,
+    required: true,
   },
   model: {
     type: String,
+    required: true,
   },
   color: {
     type: String,

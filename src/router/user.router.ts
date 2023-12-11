@@ -1,5 +1,5 @@
 import { UsersController } from "../controller/users.controller.js";
-// T import { AuthInterceptor } from "../middleware/auth.interceptor.js";
+// import { AuthInterceptor } from "../middleware/auth.interceptor.js";
 import { UsersMongoRepo } from "../repos/users/user.mongo.repo.js";
 import createDebug from 'debug';
 import { Router as createRouter } from 'express';
@@ -16,6 +16,7 @@ const controller = new UsersController(repo);
 // Tconst interceptor = new AuthInterceptor();
 
 usersRouter.get('/', controller.getAll.bind(controller));
+
 usersRouter.post(
   '/register',
   controller.create.bind(controller)

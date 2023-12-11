@@ -38,9 +38,9 @@ export const handleError = (
   if (error instanceof mongo.MongoServerError) {
     console.error('406 Not accepted', error.message);
     res.status(406);
-    res.statusMessage = 'Not accepted';
+    res.statusMessage = 'Not Acceptable';
     res.send({
-      status: '406 Not accepted',
+      status: '406 Not Acceptable',
     });
     return;
   }

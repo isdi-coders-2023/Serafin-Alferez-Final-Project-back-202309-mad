@@ -1,11 +1,12 @@
 import createDebug from 'debug';
 import { Repository } from '../repo.js';
-import { LoginUser, User } from '../../entities/user.js';
-import { HttpError } from '../../types/http.error.js';
+import { LoginUser, User} from '../../entities/user.js';
+
 import { Auth } from '../../services/auth.js';
 import { UserModel } from './user.mongo.model.js';
+import { HttpError } from '../../types/http.error.js';
 
-const debug = createDebug('W7E:users:mongo:repo');
+const debug = createDebug('FP:users:mongo:repo');
 
 export class UsersMongoRepo implements Repository<User> {
   constructor() {
@@ -31,6 +32,14 @@ export class UsersMongoRepo implements Repository<User> {
     return result;
   }
 
+  // async getListOfCars(id: string): Promise<Car[]> {
+  //   const result = await UserModel.find({ id })
+  //     .populate('cars')
+  //     .exec();
+  //   const listOfCars = result[0].cars
+  //   return listOfCars
+  // }
+
   async getById(id: string): Promise<User> {
     const result = await UserModel.findById(id).exec();
     if (!result) throw new HttpError(404, 'Not Found', 'GetById nos possible');
@@ -51,4 +60,20 @@ export class UsersMongoRepo implements Repository<User> {
       throw new HttpError(404, 'Not Found', 'Delete not possible');
     }
   }
+
+  // async search({
+  //   key,
+  //   value,
+  // }: {
+  //   key: keyof User;
+  //   value: any;
+  // }): Promise<User[]> {
+  //   const result = await UserModel.find({ [key]: value })
+  //     .populate('author', {
+  //       notes: 0,
+  //     })
+  //     .exec();
+
+  //   return result;
+  // }  
 }

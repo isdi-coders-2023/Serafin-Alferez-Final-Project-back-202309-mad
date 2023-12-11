@@ -5,7 +5,8 @@ import { User } from "../entities/user.js";
 import createDebug from 'debug';
 import { HttpError } from "../types/http.error.js";
 
-const debug = createDebug('W7E:auth');
+
+const debug = createDebug('FP:auth');
 debug('Imported');
 export type TokenPayload = {
   id: User['id']

@@ -10,9 +10,7 @@ import { MediaFiles } from '../services/media.files.js';
 const debug = createDebug('FP:cars:controller');
 
 export class CarsController extends Controller<Car>{
-  // eslint-disable-next-line no-undef
   declare cloudinaryService: MediaFiles;
-  // eslint-disable-next-line no-unused-vars
   constructor(protected repo: Repository<Car>) {
     super(repo);
     this.cloudinaryService = new MediaFiles();
@@ -33,9 +31,14 @@ export class CarsController extends Controller<Car>{
 }
 
 
+
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
-      await this.repo.delete(req.params.id);
+      // if (!this.repo) {
+      //   throw new Error('Repository is undefined');
+      // }
+
+      await this.repo?.delete(req.params.id);
       res.status(204);
       res.statusMessage = 'No Content';
       res.json({});
