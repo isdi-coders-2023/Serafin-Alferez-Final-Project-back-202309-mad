@@ -12,5 +12,7 @@ export default {
     'src/repos/repo.ts',
     'src/router/user.router.ts',
     'src/router/cars.router.ts',
+    'src/repos/cars/cars.mongo.model.ts',
+    'src/repos/cars/cars.mongo.repo.ts'
   ],
 };

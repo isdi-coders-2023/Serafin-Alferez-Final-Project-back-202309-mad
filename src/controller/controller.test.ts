@@ -75,14 +75,6 @@ describe('Given UsersController class', () => {
         mockResponseWithUserId,
         mockNext
       );
-
-      // Tconst expectedDataWithUserId = {
-      //   user: {},
-      //   token: expect.any(String),
-      // };
-      // Texpect(mockResponseWithUserId.json).toHaveBeenCalledWith(
-      //   expectedDataWithUserId
-      // );
     });
   });
 

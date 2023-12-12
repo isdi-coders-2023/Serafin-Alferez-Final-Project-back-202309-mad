@@ -9,6 +9,7 @@
     "start:dev": "cross-env PORT=2800 DEBUG=FP* nodemon dist/index.js",
     "build": "tsc -w",
     "test": "jest --watchAll --coverage",
+    "test:f": "jest --watchAll --coverage",
     "test:prod": "jest --watchAll --coverage --watchAll=false --passWithNoTests",
     "test:coverage": "jest --watchAll --coverage",
     "build:render": "tsc",

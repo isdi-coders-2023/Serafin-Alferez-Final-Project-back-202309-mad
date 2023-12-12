@@ -1,10 +1,11 @@
 import createDebug from 'debug';
-import mongoose from 'mongoose';
 import { Car } from '../../entities/car.js';
-import { CarModel } from './car.mongo.model.js';
+import { CarModel } from './cars.mongo.model.js';
 import { HttpError } from '../../types/http.error.js';
-import { UsersMongoRepo } from '../users/users.mongo.repo.js';
+import { UsersMongoRepo } from '../users/user.mongo.repo.js';
 import { Repository } from '../repo.js';
+import mongoose from 'mongoose';
+
 
 const debug = createDebug('FT:hobbies:mongo:repo');
 
@@ -30,7 +31,7 @@ export class CarsMongoRepo implements Repository<Car> {
       cars: 0,
     })
     .exec();
-    if (!result) throw new HttpError(404, 'Not found', 'GetById not possible');
+    if (!result) throw new HttpError(404, 'Not found', 'GetById is not possible');
     return result;
   }
 
@@ -52,10 +53,24 @@ export class CarsMongoRepo implements Repository<Car> {
     })
       .populate('author', { cars: 0 })
       .exec();
-      // Console.log('Update result:', result);
+
     if (!result) throw new HttpError(404, 'Not Found', 'Update not possible');
     return result;
   }
+
+//   async delete(id: string): Promise<void> {
+//     const carItem = (await CarModel.findByIdAndDelete(
+//       id
+//     ).exec()) as unknown as Car;
+//     if (!carItem) {
+//       throw new HttpError(404, 'Not Found', 'Delete not possible');
+//     }
+
+//     await UserModel.findByIdAndUpdate(carItem.author, {
+//       $pull: { c: id },
+//     }).exec();
+//   }
+// }
 
   async delete(id: string): Promise<void> {
     const result = await CarModel.findByIdAndDelete(id)
@@ -76,3 +91,19 @@ export class CarsMongoRepo implements Repository<Car> {
     await this.userRepo.update(userID, user)
   }
 }
+  // async search({
+  //   key,
+  //   value,
+  // }: {
+  //   key: keyof Car;
+  //   value: unknown;
+  // }): Promise<Car[]> {
+  //   const result = await CarModel.find({ [key]: value })
+  //     .populate('author', {
+  //       cars: 0,
+  //     })
+  //     .exec();
+  //   return result;
+  // }  
+
+

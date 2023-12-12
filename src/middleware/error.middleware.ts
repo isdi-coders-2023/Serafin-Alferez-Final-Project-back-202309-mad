@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
-import { HttpError } from '../types/http.error.js';
+
 import mongoose, { mongo } from 'mongoose';
 import createDebug from 'debug';
+import { HttpError } from '../types/http.error';
 const debug = createDebug('W7E:error:middleware');
 
 debug('Starting');
@@ -37,9 +38,9 @@ export const handleError = (
   if (error instanceof mongo.MongoServerError) {
     console.error('406 Not accepted', error.message);
     res.status(406);
-    res.statusMessage = 'Not accepted';
+    res.statusMessage = 'Not Acceptable';
     res.send({
-      status: '406 Not accepted',
+      status: '406 Not Acceptable',
     });
     return;
   }

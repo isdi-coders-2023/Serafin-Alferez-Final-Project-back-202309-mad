@@ -15,19 +15,20 @@ const repo = new CarsMongoRepo();
 const controller = new CarsController(repo);
 const interceptor = new AuthInterceptor()
 
-carsRouter
-.get('/', controller.getAll.bind(controller));
-carsRouter
-.get('/:id', controller.getById.bind(controller));
-carsRouter
-.post(
+carsRouter.get('/', controller.getAll.bind(controller));
+
+carsRouter.get('/:id', controller.getById.bind(controller));
+
+// 3.0
+
+carsRouter.post(
   '/',
   interceptor.authorization.bind(interceptor),
   fileInterceptor.singleFileStore('picture').bind(fileInterceptor),
   controller.create.bind(controller)
 );
-carsRouter
-.patch(
+
+carsRouter.patch(
   '/:id',
   interceptor.authorization.bind(interceptor),
   interceptor.authenticationCars.bind(interceptor),
@@ -35,8 +36,7 @@ carsRouter
   controller.update.bind(controller)
 );
 
-carsRouter
-.delete(
+carsRouter.delete(
   '/:id',
   interceptor.authorization.bind(interceptor),
   interceptor.authenticationCars.bind(interceptor),
