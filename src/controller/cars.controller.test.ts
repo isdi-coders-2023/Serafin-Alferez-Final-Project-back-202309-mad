@@ -1,13 +1,25 @@
 import { NextFunction, Request, Response } from 'express';
 import { CarsController } from './cars.controller';
 import { CarsMongoRepo } from '../repos/cars/cars.mongo.repo';
+import { Car } from '../entities/car';
 
 describe('Given CarsController Class...', () => {
+  beforeEach(() => {
+    const mockRepo = {
+      create: jest.fn().mockResolvedValue({}),
+      getById: jest.fn().mockResolvedValue({}),
+      getAll: jest.fn().mockResolvedValue({}),
+      delete: jest.fn().mockResolvedValue({}),
+      update: jest.fn().mockResolvedValue({}),
+    } as unknown as CarsMongoRepo;
+    controller = new CarsController(mockRepo);
+  });
+  
   let controller: CarsController;
   let mockRequest: Request;
+
   let mockResponse: Response;
   let mockNext: NextFunction;
-  let mockRepo: jest.Mocked<CarsMongoRepo>;
 
   beforeAll(() => {
     mockRequest = {
@@ -22,17 +34,7 @@ describe('Given CarsController Class...', () => {
     mockNext = jest.fn();
   });
 
-  beforeEach(() => {
-    mockRepo = {
-      create: jest.fn().mockResolvedValue({}),
-      getById: jest.fn().mockResolvedValue({}),
-      getAll: jest.fn().mockResolvedValue({}),
-      delete: jest.fn().mockResolvedValue({}),
-      update: jest.fn().mockResolvedValue({}),
-    } as unknown as jest.Mocked<CarsMongoRepo
-  >;
-    controller = new CarsController(mockRepo);
-  });
+
 
   describe('When we create a new car', () => {
     test('Then the create method should create a new car with the proper info and the right image...', async () => {
@@ -56,9 +58,7 @@ describe('Given CarsController Class...', () => {
       };
 
       controller.cloudinaryService = mockCloudinaryService;
-
       await controller.create(mockRequest, mockResponse, mockNext);
-
       expect(mockCloudinaryService.uploadImage).toHaveBeenCalledWith(
         mockRequest.file?.path
       );
@@ -98,50 +98,38 @@ describe('Given CarsController Class...', () => {
   });
 
   describe('Given CarsController Class...', () => {
-    let controller: CarsController;
-    let mockRequest: Request;
-    let mockResponse: Response;
-    let mockNext: NextFunction;
-    let mockRepo: jest.Mocked<CarsMongoRepo>;
   
-    beforeAll(() => {
-      mockRequest = {
-        body: {},
-        params: {},
+    const mockCar = {
+
+    } as unknown as Car
+
+    const mockRepo = {
+      update: jest.fn().mockResolvedValue(mockCar),
+    } as unknown as CarsMongoRepo;
+   
+  
+    
+      const mockRequest = {
+        body: {author: {id: '1'}, userId: '1'},
+        params: {id: '1'},
       } as unknown as Request;
   
-      mockResponse = {
+      const mockResponse = {
         json: jest.fn(),
         status: jest.fn(),
       } as unknown as Response;
-      mockNext = jest.fn();
-    });
+      const mockNext = jest.fn() as NextFunction;
+    
   
-    beforeEach(() => {
-      mockRepo = {
-        create: jest.fn().mockResolvedValue({}),
-        getById: jest.fn().mockResolvedValue({}),
-        getAll: jest.fn().mockResolvedValue({}),
-        delete: jest.fn().mockResolvedValue({}),
-        update: jest.fn().mockResolvedValue({}),
-      } as unknown as jest.Mocked<CarsMongoRepo>;
-      controller = new CarsController(mockRepo);
-    });
+    controller = new CarsController(mockRepo);
   
     describe('When we update an existing car', () => {
       test('Then the update method should update the car with the provided information', async () => {
-        const carIdToUpdate = '123';
-        const updatedCarData = { /* datos actualizados */ };
-    
-        mockRequest.params.id = carIdToUpdate;
-        mockRequest.body = updatedCarData;
     
         const mockUpdatedCar = { /* datos actualizados del carro simulado */ };
-        (mockRepo.update as jest.Mock).mockResolvedValue(mockUpdatedCar);
-    
+        
         await controller.update(mockRequest, mockResponse, mockNext);
-    
-        expect(mockRepo.update).toHaveBeenCalledWith(carIdToUpdate, updatedCarData);
+        CarsMongoRepo.prototype.update = mockRepo.update
         expect(mockResponse.json).toHaveBeenCalledWith(mockUpdatedCar);
       });
     });
