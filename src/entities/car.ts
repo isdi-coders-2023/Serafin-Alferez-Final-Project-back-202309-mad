@@ -1,3 +1,4 @@
+import { ImgData } from "../types/img.data"
 import { User } from "./user"
 
 
@@ -8,5 +9,5 @@ export type Car = {
   color: string,
   year: number,
   author: User,
-  picture: ImageData
+  picture: ImgData
 }

@@ -95,6 +95,81 @@ describe('Given CarsController Class...', () => {
       await controller.delete(mockRequest, mockResponse, mockNext);
       expect(mockNext).toHaveBeenCalledWith(mockError);
     });
+  });
+
+  describe('Given CarsController Class...', () => {
+    let controller: CarsController;
+    let mockRequest: Request;
+    let mockResponse: Response;
+    let mockNext: NextFunction;
+    let mockRepo: jest.Mocked<CarsMongoRepo>;
+  
+    beforeAll(() => {
+      mockRequest = {
+        body: {},
+        params: {},
+      } as unknown as Request;
+  
+      mockResponse = {
+        json: jest.fn(),
+        status: jest.fn(),
+      } as unknown as Response;
+      mockNext = jest.fn();
+    });
+  
+    beforeEach(() => {
+      mockRepo = {
+        create: jest.fn().mockResolvedValue({}),
+        getById: jest.fn().mockResolvedValue({}),
+        getAll: jest.fn().mockResolvedValue({}),
+        delete: jest.fn().mockResolvedValue({}),
+        update: jest.fn().mockResolvedValue({}),
+      } as unknown as jest.Mocked<CarsMongoRepo>;
+      controller = new CarsController(mockRepo);
+    });
+  
+    describe('When we update an existing car', () => {
+      test('Then the update method should update the car with the provided information', async () => {
+        const carIdToUpdate = '123';
+        const updatedCarData = { /* datos actualizados */ };
+    
+        mockRequest.params.id = carIdToUpdate;
+        mockRequest.body = updatedCarData;
+    
+        const mockUpdatedCar = { /* datos actualizados del carro simulado */ };
+        (mockRepo.update as jest.Mock).mockResolvedValue(mockUpdatedCar);
+    
+        await controller.update(mockRequest, mockResponse, mockNext);
+    
+        expect(mockRepo.update).toHaveBeenCalledWith(carIdToUpdate, updatedCarData);
+        expect(mockResponse.json).toHaveBeenCalledWith(mockUpdatedCar);
+      });
+    });
+    
+  describe('When we create a new car', () => {
+  test('Then the create method should create a new car with the proper info and the right image...', async () => {
+    const mockRequestWithFile = {
+      file: {
+        path: 'valid/path/to/image.jpg',
+      },
+      body: {},
+    } as unknown as Request;
+
+    const mockImageData = { url: 'https://example.com/image.jpg' };
+    const mockCloudinaryService = {
+      uploadImage: jest.fn().mockResolvedValue(mockImageData),
+    };
+
+    controller.cloudinaryService = mockCloudinaryService;
+
+    await controller.create(mockRequestWithFile, mockResponse, mockNext);
+    expect(mockCloudinaryService.uploadImage).toHaveBeenCalledWith(
+      mockRequestWithFile.file?.path
+    );
+    expect(mockRequestWithFile.body.picture).toBe(mockImageData);
+  });
+});
 
   });
+  
 });

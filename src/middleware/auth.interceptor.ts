@@ -20,6 +20,7 @@ export class AuthInterceptor {
       const token = tokenHeader.split(' ')[1];
       const tokenPayload = Auth.verifyAndGetPayload(token);
       req.body.userId = tokenPayload.id;
+      console.log(req.body.userId);
       debug('req.body.id', req.body.userId);
       next();
     } catch (error) {

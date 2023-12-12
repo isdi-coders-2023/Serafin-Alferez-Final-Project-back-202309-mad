@@ -2,6 +2,7 @@ import { AuthInterceptor } from './auth.interceptor.js';
 import { HttpError } from '../types/http.error.js';
 import { Auth } from '../services/auth';
 import { NextFunction, Request, Response } from 'express';
+import { CarsMongoRepo } from '../repos/cars/cars.mongo.repo.js';
 
 
 
@@ -44,5 +45,84 @@ describe('Given AuthInterceptor class', () => {
     });
   });
 
- 
+  
+  jest.mock('../repos/cars/cars.mongo.repo.js');
+
+  describe('Dada la clase AuthInterceptor', () => {
+    let authInterceptor: AuthInterceptor;
+  
+    beforeEach(() => {
+      authInterceptor = new AuthInterceptor();
+    });
+  
+    describe('Cuando usamos el método authenticationCars', () => {
+      test('Entonces debería llamar a next cuando el usuario es el autor del automóvil', async () => {
+        const req = {
+          body: { userId: 'userId' },
+          params: { id: 'carId' },
+        } as unknown as Request;
+        const res = {} as Response;
+        const next = jest.fn() as NextFunction;
+  
+        const mockCar = {
+          author: { id: 'userId' },
+        };
+  
+        const instanciaMockCarsMongoRepo = {
+          getById: jest.fn().mockResolvedValue(mockCar),
+        };
+  
+        jest.spyOn(CarsMongoRepo.prototype, 'getById').mockImplementation(instanciaMockCarsMongoRepo.getById);
+  
+        await authInterceptor.authenticationCars(req, res, next);
+  
+        expect(instanciaMockCarsMongoRepo.getById).toHaveBeenCalledWith('carId');
+        expect(next).toHaveBeenCalled();
+      });
+  
+      test('Entonces debería llamar a next con un HttpError cuando el usuario no es el autor del automóvil', async () => {
+        const req = {
+          body: { userId: 'userId' },
+          params: { id: 'carId' },
+        } as unknown as Request;
+        const res = {} as Response;
+        const next = jest.fn() as NextFunction;
+  
+        const mockCar = {
+          author: { id: 'otherUserId' },
+        };
+  
+        const instanciaMockCarsMongoRepo = {
+          getById: jest.fn().mockResolvedValue(mockCar),
+        };
+  
+        jest.spyOn(CarsMongoRepo.prototype, 'getById').mockImplementation(instanciaMockCarsMongoRepo.getById);
+  
+        await authInterceptor.authenticationCars(req, res, next);
+  
+        expect(instanciaMockCarsMongoRepo.getById).toHaveBeenCalledWith('carId');
+        expect(next).toHaveBeenCalledWith(expect.any(HttpError));
+      });
+  
+      test('Entonces debería llamar a next con un HttpError cuando hay un error al obtener el automóvil', async () => {
+        const req = {
+          body: { userId: 'userId' },
+          params: { id: 'carId' },
+        } as unknown as Request;
+        const res = {} as Response;
+        const next = jest.fn() as NextFunction;
+  
+        const instanciaMockCarsMongoRepo = {
+          getById: jest.fn().mockRejectedValue(new HttpError(500, 'Database error')),
+        };
+  
+        jest.spyOn(CarsMongoRepo.prototype, 'getById').mockImplementation(instanciaMockCarsMongoRepo.getById);
+  
+        await authInterceptor.authenticationCars(req, res, next);
+  
+        expect(instanciaMockCarsMongoRepo.getById).toHaveBeenCalledWith('carId');
+        expect(next).toHaveBeenCalledWith(expect.any(HttpError));
+      });
+    });
+  });
 });
