@@ -48,10 +48,6 @@ async update(req: Request, res: Response, next: NextFunction) {
 
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
-      // if (!this.repo) {
-      //   throw new Error('Repository is undefined');
-      // }
-
       await this.repo?.delete(req.params.id);
       res.status(204);
       res.statusMessage = 'No Content';

@@ -22,6 +22,7 @@ usersRouter.post(
   controller.create.bind(controller)
 );
 usersRouter.post('/login', controller.login.bind(controller));
+usersRouter.get('/reload/:id', controller.getUpdatedUserById.bind(controller))
 // T usersRouter.patch('/login', 
 //   interceptor.authorization.bind(interceptor), 
 //   controller.login.bind(controller)

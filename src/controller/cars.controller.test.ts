@@ -80,6 +80,7 @@ describe('Given CarsController Class...', () => {
       const mockRepo = {
         create: jest.fn().mockRejectedValue(mockError),
         delete: jest.fn().mockRejectedValue(mockError),
+        update: jest.fn().mockRejectedValue(mockError),
       } as unknown as CarsMongoRepo
     ;
 
@@ -88,6 +89,11 @@ describe('Given CarsController Class...', () => {
 
     test('Then create should throw an error', async () => {
       await controller.create(mockRequest, mockResponse, mockNext);
+      expect(mockNext).toHaveBeenCalledWith(mockError);
+    });
+
+    test('Then update should throw an error', async () => {
+      await controller.update(mockRequest, mockResponse, mockNext);
       expect(mockNext).toHaveBeenCalledWith(mockError);
     });
 
@@ -135,29 +141,29 @@ describe('Given CarsController Class...', () => {
     });
     
   describe('When we create a new car', () => {
-  test('Then the create method should create a new car with the proper info and the right image...', async () => {
-    const mockRequestWithFile = {
-      file: {
-        path: 'valid/path/to/image.jpg',
-      },
-      body: {},
-    } as unknown as Request;
+    test('Then the create method should create a new car with the proper info and the right image...', async () => {
+      const mockRequestWithFile = {
+        file: {
+          path: 'valid/path/to/image.jpg',
+        },
+        body: {},
+      } as unknown as Request;
 
-    const mockImageData = { url: 'https://example.com/image.jpg' };
-    const mockCloudinaryService = {
-      uploadImage: jest.fn().mockResolvedValue(mockImageData),
-    };
+      const mockImageData = { url: 'https://example.com/image.jpg' };
+      const mockCloudinaryService = {
+        uploadImage: jest.fn().mockResolvedValue(mockImageData),
+      };
 
-    controller.cloudinaryService = mockCloudinaryService;
+      controller.cloudinaryService = mockCloudinaryService;
 
-    await controller.create(mockRequestWithFile, mockResponse, mockNext);
-    expect(mockCloudinaryService.uploadImage).toHaveBeenCalledWith(
-      mockRequestWithFile.file?.path
-    );
-    expect(mockRequestWithFile.body.picture).toBe(mockImageData);
-  });
+      await controller.create(mockRequestWithFile, mockResponse, mockNext);
+      expect(mockCloudinaryService.uploadImage).toHaveBeenCalledWith(
+        mockRequestWithFile.file?.path
+      );
+      expect(mockRequestWithFile.body.picture).toBe(mockImageData);
+    });
 });
 
-  });
+});
   
 });

@@ -21,27 +21,24 @@ export class UsersMongoRepo implements Repository<User> {
 
   async login(LoginUser: LoginUser): Promise<User> {
 
-    const result = await UserModel.findOne({ email: LoginUser.email }).exec();
+    const result = await UserModel.findOne({ email: LoginUser.email })
+      .populate('cars')
+      .exec();
     if (!result || !(await Auth.compare(LoginUser.passwd, result.passwd)))
       throw new HttpError(401, 'Unauthorized');
     return result;
   }
 
   async getAll(): Promise<User[]> {
-    const result = await UserModel.find().exec();
+    const result = await UserModel.find()
+      .populate('cars')
+      .exec();
     return result;
   }
 
-  // async getListOfCars(id: string): Promise<Car[]> {
-  //   const result = await UserModel.find({ id })
-  //     .populate('cars')
-  //     .exec();
-  //   const listOfCars = result[0].cars
-  //   return listOfCars
-  // }
 
   async getById(id: string): Promise<User> {
-    const result = await UserModel.findById(id).exec();
+    const result = await UserModel.findById(id).populate('cars').exec();
     if (!result) throw new HttpError(404, 'Not Found', 'GetById nos possible');
     return result;
   }
@@ -60,20 +57,5 @@ export class UsersMongoRepo implements Repository<User> {
       throw new HttpError(404, 'Not Found', 'Delete not possible');
     }
   }
-
-  // async search({
-  //   key,
-  //   value,
-  // }: {
-  //   key: keyof User;
-  //   value: any;
-  // }): Promise<User[]> {
-  //   const result = await UserModel.find({ [key]: value })
-  //     .populate('author', {
-  //       notes: 0,
-  //     })
-  //     .exec();
-
-  //   return result;
-  // }  
+ 
 }

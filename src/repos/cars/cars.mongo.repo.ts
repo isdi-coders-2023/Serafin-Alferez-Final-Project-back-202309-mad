@@ -58,19 +58,6 @@ export class CarsMongoRepo implements Repository<Car> {
     return result;
   }
 
-//   async delete(id: string): Promise<void> {
-//     const carItem = (await CarModel.findByIdAndDelete(
-//       id
-//     ).exec()) as unknown as Car;
-//     if (!carItem) {
-//       throw new HttpError(404, 'Not Found', 'Delete not possible');
-//     }
-
-//     await UserModel.findByIdAndUpdate(carItem.author, {
-//       $pull: { c: id },
-//     }).exec();
-//   }
-// }
 
   async delete(id: string): Promise<void> {
     const result = await CarModel.findByIdAndDelete(id)
@@ -90,20 +77,6 @@ export class CarsMongoRepo implements Repository<Car> {
     });
     await this.userRepo.update(userID, user)
   }
-}
-  // async search({
-  //   key,
-  //   value,
-  // }: {
-  //   key: keyof Car;
-  //   value: unknown;
-  // }): Promise<Car[]> {
-  //   const result = await CarModel.find({ [key]: value })
-  //     .populate('author', {
-  //       cars: 0,
-  //     })
-  //     .exec();
-  //   return result;
-  // }  
+} 
 
 
