@@ -36,17 +36,17 @@ export class UsersController extends Controller<User> {
     }
   }
 
-async getUpdatedUserById(req: Request, res: Response, next: NextFunction) {
-  try {
-    const userId = req.params.id
-    const user = await this.repo.getById(userId)
-    res.status(200)
-    res.statusMessage = 'Ok'
-    res.json(user)
-  } catch (error) {
-    next(error)
-  }
-}
+// async getUpdatedUserById(req: Request, res: Response, next: NextFunction) {
+//   try {
+//     const userId = req.params.id
+//     const user = await this.repo.getById(userId)
+//     res.status(200)
+//     res.statusMessage = 'Ok'
+//     res.json(user)
+//   } catch (error) {
+//     next(error)
+//   }
+// }
 
 }
 

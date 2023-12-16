@@ -36,6 +36,15 @@ export class UsersMongoRepo implements Repository<User> {
     return result;
   }
 
+  async getByPage(pageNumber: string): Promise<User[]>{
+    const pageSize = 6;
+    const result = await UserModel.find()
+      .limit(pageSize)
+      .skip((Number(pageNumber) - 1) * pageSize)
+      .exec()
+    if (!result) throw new HttpError(404, 'Not found', 'getByPage is not possible');
+    return result
+  }
 
   async getById(id: string): Promise<User> {
     const result = await UserModel.findById(id).populate('cars').exec();

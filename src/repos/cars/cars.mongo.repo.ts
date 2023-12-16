@@ -25,6 +25,16 @@ export class CarsMongoRepo implements Repository<Car> {
     return result;
   }
 
+  async getByPage(pageNumber: string): Promise<Car[]>{
+    const pageSize = 6;
+    const result = await CarModel.find()
+      .limit(pageSize)
+      .skip((Number(pageNumber) - 1) * pageSize)
+      .exec()
+    if (!result) throw new HttpError(404, 'Not found', 'GetById is not possible');
+    return result
+  }
+
   async getById(id: string): Promise<Car> {
     const result = await CarModel.findById(id)
     .populate('author', {
