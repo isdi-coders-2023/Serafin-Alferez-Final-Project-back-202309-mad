@@ -24,6 +24,9 @@ const carsSchema = new Schema<Car>({
   year: {
     type: Number,
   },
+  info: {
+    type: String,
+  },
   picture: {
     publicId: String,
     size: Number,

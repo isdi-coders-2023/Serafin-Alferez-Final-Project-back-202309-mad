@@ -19,12 +19,14 @@ describe('GivenUsersMongoRepo', () => {
         }),
         exec,
       });
-      UserModel.find = mockQueryMethod;
-      UserModel.findById = mockQueryMethod;
-      UserModel.findOne = mockQueryMethod;
-      UserModel.findByIdAndUpdate = mockQueryMethod;
-      UserModel.findByIdAndDelete = mockQueryMethod;
-      UserModel.create = jest.fn().mockResolvedValue('Test');
+      const mockUserModel = UserModel as jest.Mocked<typeof UserModel>;
+
+      mockUserModel.find = mockQueryMethod;
+      mockUserModel.findById = mockQueryMethod;
+      mockUserModel.findOne = mockQueryMethod;
+      mockUserModel.findByIdAndUpdate = mockQueryMethod;
+      mockUserModel.findByIdAndDelete = mockQueryMethod;
+      mockUserModel.create = jest.fn().mockResolvedValue('Test');
       repo = new UsersMongoRepo();
     });
 
@@ -66,4 +68,72 @@ describe('GivenUsersMongoRepo', () => {
     });
   });
 
+  describe('When we instantiate it without errors', () => {
+    const exec = jest.fn().mockResolvedValue('Test');
+    beforeEach(() => {
+      const mockQueryMethod = jest.fn().mockReturnValue({
+        limit: jest.fn().mockReturnValue({
+          skip: jest.fn().mockReturnValue({exec})
+          
+        }),
+      });
+      const mockUserModel = UserModel as jest.Mocked<typeof UserModel>;
+
+      mockUserModel.find = mockQueryMethod;
+      repo = new UsersMongoRepo();
+    });
+
+    test('Then it should execute getByPage', async () => {
+      const result = await repo.getByPage('');
+      expect(exec).toHaveBeenCalled();
+      expect(result).toBe('Test');
+    })
+
 });
+
+
+describe('When we isntantiate it WITH errors', () => {
+  let usersRepo: UsersMongoRepo;
+  const exec = jest.fn().mockResolvedValue(null);
+  beforeEach(() => {
+    const mockQueryMethod = jest.fn().mockReturnValue({
+      limit: jest.fn().mockReturnValue({
+        skip: jest.fn().mockReturnValue({exec})
+        
+      }),
+    });
+
+    const mockUserModel = UserModel as jest.Mocked<typeof UserModel>;
+    mockUserModel.find = mockQueryMethod;
+    mockUserModel.findByIdAndUpdate = mockQueryMethod;
+    repo = new UsersMongoRepo();
+    UserModel.findById = jest.fn().mockReturnValue({
+      exec,
+    });
+    UserModel.findOne = jest.fn().mockReturnValue({
+      populate: jest.fn().mockReturnValue({exec})
+    });
+    UserModel.findByIdAndDelete = jest.fn().mockReturnValue({
+      exec,
+    });
+    UserModel.findByIdAndUpdate = jest.fn().mockReturnValue({
+      exec,
+    });
+    usersRepo = new UsersMongoRepo();
+  });
+  test('Then getById should throw an error', async () => {
+    expect(usersRepo.getById('' as string)).rejects.toThrow();
+  });
+  test('Then login should throw an error', async () => {
+    expect(usersRepo.login({} as User)).rejects.toThrow();
+  });
+  test('Then update should throw an error', async () => {
+    expect(usersRepo.delete('')).rejects.toThrow();
+  });
+  test('Then update should throw an error', async () => {
+    expect(usersRepo.getByPage('')).rejects.toThrow();
+  });
+
+});
+
+})

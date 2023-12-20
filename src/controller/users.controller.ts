@@ -14,25 +14,6 @@ export class UsersController extends Controller<User> {
     debug('Instantiated');
   }
 
-  //  Aasync getAll(_req: Request, res: Response, next: NextFunction) {
-  //   try {
-  //     const result = await this.repo.getAll();
-  //     res.json(result);
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
-
-  //  async loginWithToken(req: Request, res: Response, next: NextFunction) {
-  //   try {
-  //     const result = this.repo.getById(req.body.userId);
-  //     res.json(result);
-  //     res.status(202);
-  //     res.statusMessage = 'Accepted';
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
 
   async login(req: Request, res: Response, next: NextFunction) {
     try {
@@ -54,4 +35,18 @@ export class UsersController extends Controller<User> {
       next(error);
     }
   }
+
+// async getUpdatedUserById(req: Request, res: Response, next: NextFunction) {
+//   try {
+//     const userId = req.params.id
+//     const user = await this.repo.getById(userId)
+//     res.status(200)
+//     res.statusMessage = 'Ok'
+//     res.json(user)
+//   } catch (error) {
+//     next(error)
+//   }
+// }
+
 }
+

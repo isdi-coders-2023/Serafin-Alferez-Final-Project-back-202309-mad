@@ -24,6 +24,7 @@ describe('Given UsersController class', () => {
     beforeEach(() => {
       const mockRepo = {
         getAll: jest.fn().mockResolvedValue([{}]),
+        getByPage: jest.fn().mockResolvedValue([]),
         getById: jest.fn().mockResolvedValue({}),
         search: jest.fn().mockResolvedValue([{}]),
         create: jest.fn().mockResolvedValue({}),
@@ -57,6 +58,11 @@ describe('Given UsersController class', () => {
       expect(mockResponse.json).toHaveBeenCalledWith({});
     });
 
+    test('Then getByPage should ...', async () => {
+      await controller.getByPage(mockRequest, mockResponse, mockNext);
+      expect(mockResponse.json).toHaveBeenCalledWith([]);
+    })
+
 
     test('Then login should return user data and token', async () => {
       const mockRequestWithUserId = {
@@ -86,6 +92,7 @@ describe('Given UsersController class', () => {
         getAll: jest.fn().mockRejectedValue(mockError),
         getById: jest.fn().mockRejectedValue(mockError),
         search: jest.fn().mockRejectedValue(mockError),
+        getByPage: jest.fn().mockRejectedValue(mockError),
         create: jest.fn().mockRejectedValue(mockError),
         update: jest.fn().mockRejectedValue(mockError),
         addFriend: jest.fn().mockRejectedValue(mockError),
@@ -99,6 +106,11 @@ describe('Given UsersController class', () => {
 
     test('Then getAll should ...', async () => {
       await controller.getAll(mockRequest, mockResponse, mockNext);
+      expect(mockNext).toHaveBeenLastCalledWith(mockError);
+    });
+
+    test('Then getAll should ...', async () => {
+      await controller.getByPage(mockRequest, mockResponse, mockNext);
       expect(mockNext).toHaveBeenLastCalledWith(mockError);
     });
 
