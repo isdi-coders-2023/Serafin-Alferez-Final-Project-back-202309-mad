@@ -38,3 +38,19 @@ MongoDB: MongoDB sirve como la base de datos para almacenar la información de u
 Iniciar el servidor: npm run start:dev
 
 Iniciar el compilador: npm run build
+
+## Puntos finales (Endpoints) y rutas
+
+
+
+| Tipo   | Ruta                      | Controlador/Middleware                | Descripción                           |
+|--------|---------------------------|---------------------------------------|---------------------------------------|
+| POST   | `/users/register`         | `UsersController.create`              | Registro de usuarios                 |
+| POST   | `/users/login`            | `UsersController.login`               | Inicio de sesión de usuarios          |
+| GET    | `/cars`                   | `CarsController.getAll`               | Lista global de coches                |
+| GET    | `/cars/page/:page`        | `CarsController.getByPage`            | Lista de coches por página            |
+| GET    | `/cars/:id`               | `CarsController.getById`              | Detalles de un coche                  |
+| POST   | `/cars`                   | `CarsController.create`               | Crear entrada de coche                |
+| PATCH  | `/cars/:id`               | `CarsController.update`               | Actualizar detalles de un coche      |
+| DELETE | `/cars/:id`               | `CarsController.delete`               | Eliminar un coche                     |
+
