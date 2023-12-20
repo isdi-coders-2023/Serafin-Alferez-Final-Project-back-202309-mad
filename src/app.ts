@@ -18,6 +18,10 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.static('public'));
 
+// app.use('/', (_req, res, _next) => {
+//   res.send('Server FP is ready')
+// });
+
 app.use('/cars', carsRouter);
 app.use('/users', usersRouter);
 
