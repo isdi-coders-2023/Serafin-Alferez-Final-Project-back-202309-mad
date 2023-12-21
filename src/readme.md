@@ -7,13 +7,13 @@ El proyecto se trata de una red social especializada en coches clásicos. Este b
 ### Puntos finales (Endpoints)
 
 1. **User:**
-   - Registro: Los usuarios pueden registrarse proporcionando la información necesaria.
-   - Login: Los usuarios registrados pueden iniciar sesión para acceder a funcionalidades adicionales.
+  - Registro: Los usuarios pueden registrarse proporcionando la información necesaria.
+  - Login: Los usuarios registrados pueden iniciar sesión para acceder a funcionalidades adicionales.
 
 2. **Car:**
-   - Lista Global de Coches: Todos los usuarios pueden acceder a la lista global de coches clásicos.
-   - Crear Entrada de Coches: Solo los usuarios registrados pueden crear nuevas entradas para coches clásicos.
-   - Editar y Eliminar: Los usuarios registrados pueden editar o eliminar sus propias entradas de coches, pero no las creadas por otros usuarios.
+  - Lista Global de Coches: Todos los usuarios pueden acceder a la lista global de coches clásicos.
+  - Crear Entrada de Coches: Solo los usuarios registrados pueden crear nuevas entradas para coches clásicos.
+  - Editar y Eliminar: Los usuarios registrados pueden editar o eliminar sus propias entradas de coches, pero no las creadas por otros usuarios.
 
 ### Tecnologías Utilizadas:
 
@@ -57,8 +57,8 @@ Eliminar un coche.
 
 1. Clonar el repositorio: 
 
-   ```bash
-   git clone https://github.com/isdi-coders-2023/Serafin-Alferez-Final-Project-back-202309-mad
+  ```bash
+  git clone https://github.com/isdi-coders-2023/Serafin-Alferez-Final-Project-back-202309-mad
 
 2. Navegar al directorio del proyecto:
   cd Serafin-Alferez-Final-Project-back-202309-mad
@@ -73,9 +73,3 @@ Eliminar un coche.
   npm run start:dev
 
 6. npm run build
-
-
-
-
-
-

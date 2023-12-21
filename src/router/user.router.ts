@@ -22,4 +22,3 @@ usersRouter.post(
   controller.create.bind(controller)
 );
 usersRouter.post('/login', controller.login.bind(controller));
-
