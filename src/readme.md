@@ -55,3 +55,6 @@ Cree un archivo .env en el directorio raíz del proyecto y configure las variabl
 
 5. Compilar el proyecto:
   npm run build
+
+
+Autor: Serafín Alférez Alférez
