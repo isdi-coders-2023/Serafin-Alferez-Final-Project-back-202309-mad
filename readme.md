@@ -45,5 +45,3 @@ Inicie el servidor: npm start
 [POST] /: Crea un nuevo fcoche.
 [PATCH] /:id: Permite editar la informacion de un coche.
 [DELETE] /:id: Elimina un coche.
-
-
