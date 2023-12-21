@@ -74,10 +74,7 @@ describe('Given user controller class', () => {
       } as unknown as UsersMongoRepo;
   
       const controller = new UsersController(mockRepo);
-  
       await controller.login(mockRequest, mockResponse, mockNext);
-      // T expect(mockResponse.status).toHaveBeenCalledWith(202);
-      // Texpect(mockResponse.statusMessage).toBe('Accepted');
       expect(mockRepo.getById).toHaveBeenCalledWith(mockTokenUserId);
     });
      

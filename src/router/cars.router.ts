@@ -21,7 +21,7 @@ carsRouter.get('/page/:page', controller.getByPage.bind(controller));
 
 carsRouter.get('/:id', controller.getById.bind(controller));
 
-// 3.0
+
 
 carsRouter.post(
   '/',

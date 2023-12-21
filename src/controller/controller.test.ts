@@ -129,11 +129,5 @@ describe('Given UsersController class', () => {
       await controller.update(mockRequest, mockResponse, mockNext);
       expect(mockNext).toHaveBeenLastCalledWith(mockError);
     });
-
-
-
-
-
-
   });
 });

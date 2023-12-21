@@ -14,7 +14,6 @@ export class UsersController extends Controller<User> {
     debug('Instantiated');
   }
 
-
   async login(req: Request, res: Response, next: NextFunction) {
     try {
       const result = req.body.userId
@@ -35,17 +34,4 @@ export class UsersController extends Controller<User> {
       next(error);
     }
   }
-
-// async getUpdatedUserById(req: Request, res: Response, next: NextFunction) {
-//   try {
-//     const userId = req.params.id
-//     const user = await this.repo.getById(userId)
-//     res.status(200)
-//     res.statusMessage = 'Ok'
-//     res.json(user)
-//   } catch (error) {
-//     next(error)
-//   }
-// }
-
 }

@@ -6,10 +6,10 @@ import { NextFunction, Request, Response } from 'express';
 
 
 export abstract class Controller<T extends { id: unknown }> {
-  // TcloudinaryService: MediaFiles;
+
   // eslint-disable-next-line no-unused-vars
   constructor(protected repo: Repository<T>) {
-    // T this.cloudinaryService = new MediaFiles()
+
   }
 
   async create(req: Request, res: Response, next: NextFunction) {
@@ -58,16 +58,4 @@ export abstract class Controller<T extends { id: unknown }> {
         next(error);
       }
     }
-
-    // async search(req: Request, res: Response, next: NextFunction) {
-    //   try {
-    //     const result = await this.repo.search({
-    //       key: Object.entries(req.query)[0][0] as keyof T,
-    //       value: Object.entries(req.query)[0][1],
-    //     });
-    //     res.json(result);
-    //   } catch (error) {
-    //     next(error);
-    //   }
-    // } 
 }
