@@ -1,10 +1,10 @@
-# Proyecto Final de Serafin Alferez Alferez - CLASSIC CARS - Backend
+#Proyecto Final de Serafin Alferez Alferez - CLASSIC CARS - Backend
 
-## Descripción
+##Descripción
 
 Este proyecto es una red social especializada en coches clásicos. El backend está construido utilizando Node.js, Express.js y MongoDB.
 
-### Puntos finales (Endpoints)
+###Puntos finales (Endpoints)
 
 1. **User:**
   - **Registro:** Los usuarios pueden registrarse proporcionando la información necesaria.
@@ -15,13 +15,13 @@ Este proyecto es una red social especializada en coches clásicos. El backend es
   - **Crear Entrada de Coches:** Solo los usuarios registrados pueden crear nuevas entradas para coches clásicos.
   - **Editar y Eliminar:** Los usuarios registrados pueden editar o eliminar sus propias entradas de coches, pero no las creadas por otros usuarios.
 
-### Tecnologías Utilizadas:
+###Tecnologías Utilizadas:
 
 - **Node.js:** El backend está construido con Node.js para el tiempo de ejecución de JavaScript en el lado del servidor.
 - **Express.js:** Se utiliza Express.js como el marco de aplicación web para simplificar la gestión de rutas y middleware.
 - **MongoDB:** MongoDB sirve como la base de datos para almacenar la información de usuarios y coches.
 
-### Listado de Endpoints
+###Listado de Endpoints
 
 - Lista global de usuarios. [GET] /users
 - Registro de usuarios. [POST] /users/register
@@ -33,7 +33,7 @@ Este proyecto es una red social especializada en coches clásicos. El backend es
 - Actualizar detalles de un coche. [PATCH] /cars/:id
 - Eliminar un coche. [DELETE] /cars/:id
 
-### Instalación:
+###Instalación:
 
 1. **Clonar el repositorio:**
 
