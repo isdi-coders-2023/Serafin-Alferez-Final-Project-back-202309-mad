@@ -49,4 +49,3 @@ export class UsersController extends Controller<User> {
 // }
 
 }
-

@@ -71,4 +71,3 @@ export abstract class Controller<T extends { id: unknown }> {
     //   }
     // } 
 }
-
